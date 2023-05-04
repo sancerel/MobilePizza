@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".RegistrationActivity">
+
+        <ImageView
+            android:id="@+id/yellowCorner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-20dp"
+            android:layout_marginBottom="-20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/corner_yellow" />
+
+        <ImageView
+            android:id="@+id/greenCorner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-20dp"
+            android:layout_marginTop="-30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/corner_green" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="67dp">
+
+            <EditText
+                android:id="@+id/signup_login"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="241dp"
+                android:layout_marginEnd="101dp"
+                android:height="48dp"
+                android:ems="13"
+                android:hint="Имя пользователя"
+                android:inputType="textPersonName"
+                app:layout_constraintBottom_toTopOf="@+id/signup_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.77" />
+
+            <EditText
+                android:id="@+id/signup_password"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginEnd="101dp"
+                android:ems="13"
+                android:hint="Пароль"
+                android:inputType="text|textPassword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="377dp" />
+
+            <TextView
+                android:id="@+id/reg_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="148dp"
+                android:layout_marginTop="190dp"
+                android:layout_marginEnd="147dp"
+                android:layout_marginBottom="32dp"
+                android:gravity="center"
+                android:text="ВОЙДИТЕ \n В УЧЕТНУЮ ЗАПИСЬ"
+                android:textColor="#111111"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/signup_login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="144dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="145dp"
+                android:text="Нет аккаунта?"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/setup_submit_btn2" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="185dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="186dp"
+                android:text="Зарегистрироваться"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <Button
+                android:id="@+id/setup_submit_btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="168dp"
+                android:onClick="handleAuthSubmitClick"
+                android:scaleX="1.3"
+                android:scaleY="1.3"
+                android:text="Подтвердить"
+                app:backgroundTint="#43AA72"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/frame_1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
