@@ -7,13 +7,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
+import com.yandex.mapkit.MapKitFactory;
+
 public class MainActivity extends AppCompatActivity {
     ProgressBar pb;
+    private final String MAPKIT_API_KEY = "6722f029-ef5d-429a-af61-ac3996909e71";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MapKitFactory.setApiKey(MAPKIT_API_KEY);
         setContentView(R.layout.activity_main);
+
+
         pb = findViewById(R.id.progressBar);
         new MyTask().execute();
     }
@@ -27,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... voids) {
             try {
                 for (int i = 0; i <= 100; i++) {
-                    Thread.sleep(5);
+                    Thread.sleep(2);
                     publishProgress(i);
                 }
             } catch (InterruptedException e) {

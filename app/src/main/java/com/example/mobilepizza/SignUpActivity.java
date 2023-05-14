@@ -22,6 +22,6 @@ public class SignUpActivity extends AppCompatActivity {
         TextView userPassword = findViewById(R.id.signup_password);
 
 
-        startActivity(new Intent(this, Main_LK_activity.class));
+        startActivity(new Intent(this, MainLKactivity.class));
     }
 }

@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
-
-import java.util.HashMap;
 
 public class ProfileSetUpActivity extends AppCompatActivity {
 
@@ -22,6 +19,6 @@ public class ProfileSetUpActivity extends AppCompatActivity {
     public void handleSetUpSubmitClick(View v){
         // забить в БД инфу о пользователе
 
-        startActivity(new Intent(this, Main_LK_activity.class));
+        startActivity(new Intent(this, MainLKactivity.class));
     }
 }
