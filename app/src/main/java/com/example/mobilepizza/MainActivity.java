@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 
+import com.example.mobilepizza.Database.DatabaseConnect;
 import com.yandex.mapkit.MapKitFactory;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,8 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         MapKitFactory.setApiKey(MAPKIT_API_KEY);
         setContentView(R.layout.activity_main);
-
-
+        DatabaseConnect db = new DatabaseConnect();
         pb = findViewById(R.id.progressBar);
         new MyTask().execute();
     }

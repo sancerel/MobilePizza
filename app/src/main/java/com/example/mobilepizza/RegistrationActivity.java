@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.mobilepizza.Database.DatabaseConnect;
+
 import java.util.HashMap;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -19,21 +21,21 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void handleRegSubmitClick(View v){
-        //проверить не зарегистрирован ли уже юзер
-            // если да то редиректим на страницу авторизации
-
-        //если нет то заносим в бд
-        TextView userName = findViewById(R.id.signup_login);
-        TextView userEmail = findViewById(R.id.editTextTextEmailAddress);
+        //Server db = new Server();
+        DatabaseConnect db = new DatabaseConnect();
+        TextView userTelephone = findViewById(R.id.signup_phone);
+        TextView userEmail = findViewById(R.id.singup_email);
         TextView userPassword = findViewById(R.id.signup_password);
-        HashMap<String,String> userData = new HashMap<>(); // мапа содержит данные полей
-
-        userData.put("user_name", userName.getText().toString());
+        HashMap<String,String> userData = new HashMap<>();
+        userData.put("user_telephone", userTelephone.getText().toString());
         userData.put("user_email", userEmail.getText().toString());
         userData.put("user_password", userPassword.getText().toString());
-
-        startActivity(new Intent(this, ProfileSetUpActivity.class));
+        /*String args[] = {
+                userTelephone.getText().toString(),
+                userEmail.getText().toString(),
+                userPassword.getText().toString()};*/
+        //db.InsertUser();
+        //db.Inseart();
+        //startActivity(new Intent(this, ProfileSetUpActivity.class));
     }
-
-
 }
