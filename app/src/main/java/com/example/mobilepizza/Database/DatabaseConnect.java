@@ -1,5 +1,7 @@
 package com.example.mobilepizza.Database;
 
+import android.os.AsyncTask;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,6 +20,7 @@ public class DatabaseConnect {
     private final String user = "postgres";
     private final String pass = "@W#@aEeGzMxE8MPHPZia";
     private String url = "jdbc:postgresql://77.223.99.19:5432/postgres";
+
     private boolean status;
 
     public DatabaseConnect()
@@ -76,36 +79,41 @@ public class DatabaseConnect {
 
         return c;
     }
+    public class InsertUserAsync extends AsyncTask<Void, Integer, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+                try
+                {
+                    String insertQuery = "INSERT INTO Employees (employeeid, telephone, fullName, birthDate, address, email, password, position, employeeStatus, firstWorkDate, lastWorkDate) VALUES ( '"+java.util.UUID.randomUUID().toString()+"' , ? , ?, '2020-01-01', ?, ?, ?, 'courier', 'fired', '2023-05-23', '2023-05-23')";
+                    PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                    preparedStatement.setString(1, "+79623155115");
+                    preparedStatement.setString(2, "Test User");
+                    preparedStatement.setString(3, "ekb");
+                    preparedStatement.setString(4, "asd@mail.ru");
+                    preparedStatement.setString(5, "qwerty");
+                    preparedStatement.executeUpdate();
 
+                    System.out.println("Данные добавлены");
+                }
+                catch(Exception ex){
+                    System.out.println("Connection failed...");
 
-    /*public void InsertUser () {
-        try{
+                    System.out.println(ex);
+                }
 
-            try (Connection conn = DriverManager.getConnection(url, user, pass)){
-
-                String insertQuery = "INSERT INTO Employees (employeeid, telephone, fullName, birthDate, address, email, password, position, employeeStatus, firstWorkDate, lastWorkDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-                preparedStatement.setString(1, "001");
-                preparedStatement.setString(2, "+79623155115");
-                preparedStatement.setString(3, "Test User");
-                preparedStatement.setString(4, "01-01-2000");
-                preparedStatement.setString(5, "ekb");
-                preparedStatement.setString(6, "asd@asd.ru");
-                preparedStatement.setString(7, "qwerty");
-                preparedStatement.setString(8, "courier");
-                preparedStatement.setString(9, "fired");
-                preparedStatement.setString(10, "2023-05-23");
-                preparedStatement.setString(11, "2023-05-23");
-                preparedStatement.executeUpdate();
-
-                System.out.println("Данные добавлены");
-            }
+            return null;
         }
-        catch(Exception ex){
-            System.out.println("Connection failed...");
+        @Override
+        protected void onProgressUpdate(Integer... values) {
 
-            System.out.println(ex);
         }
+        @Override
+        protected void onPostExecute(Void result) {
 
-    }*/
+        }
+    }
+
+    public void InsertUser () {
+        new InsertUserAsync().execute();
+    }
 }

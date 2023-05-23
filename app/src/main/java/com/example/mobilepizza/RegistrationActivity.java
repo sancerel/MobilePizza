@@ -21,20 +21,19 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void handleRegSubmitClick(View v){
-        //Server db = new Server();
         DatabaseConnect db = new DatabaseConnect();
-        TextView userTelephone = findViewById(R.id.signup_phone);
+        /*TextView userTelephone = findViewById(R.id.signup_phone);
         TextView userEmail = findViewById(R.id.singup_email);
         TextView userPassword = findViewById(R.id.signup_password);
         HashMap<String,String> userData = new HashMap<>();
         userData.put("user_telephone", userTelephone.getText().toString());
         userData.put("user_email", userEmail.getText().toString());
-        userData.put("user_password", userPassword.getText().toString());
+        userData.put("user_password", userPassword.getText().toString());*/
         /*String args[] = {
                 userTelephone.getText().toString(),
                 userEmail.getText().toString(),
                 userPassword.getText().toString()};*/
-        //db.InsertUser();
+        db.InsertUser();
         //db.Inseart();
         //startActivity(new Intent(this, ProfileSetUpActivity.class));
     }
