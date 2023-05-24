@@ -1,6 +1,32 @@
 package com.example.mobilepizza.Database;
 
+
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
+import static androidx.core.content.ContextCompat.startActivity;
+
+import static com.yandex.runtime.Runtime.getApplicationContext;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.mobilepizza.MainActivity;
+import com.example.mobilepizza.ProfileSetUpActivity;
+import com.example.mobilepizza.R;
+import com.example.mobilepizza.RegistrationActivity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -79,25 +105,30 @@ public class DatabaseConnect {
 
         return c;
     }
+    UUID a = java.util.UUID.randomUUID();
+    String email = "";
+    String fullname="";
+    String address="";
+    String password="";
+    String telephone="";
+
     public class InsertUserAsync extends AsyncTask<Void, Integer, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-                try
-                {
-                    String insertQuery = "INSERT INTO Employees (employeeid, telephone, fullName, birthDate, address, email, password, position, employeeStatus, firstWorkDate, lastWorkDate) VALUES ( '"+java.util.UUID.randomUUID().toString()+"' , ? , ?, '2020-01-01', ?, ?, ?, 'courier', 'fired', '2023-05-23', '2023-05-23')";
+            try
+               {
+                    String insertQuery = "INSERT INTO Employees (employeeid, telephone, fullName, birthDate, address, email, password, position, employeeStatus, firstWorkDate, lastWorkDate) VALUES ( '"+a.toString()+"' , ? , ?, '2020-01-01', ?, ?, ?, 'courier', 'fired', '2023-05-23', '2023-05-23')";
                     PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-                    preparedStatement.setString(1, "+79623155115");
-                    preparedStatement.setString(2, "Test User");
-                    preparedStatement.setString(3, "ekb");
-                    preparedStatement.setString(4, "asd@mail.ru");
-                    preparedStatement.setString(5, "qwerty");
+                    preparedStatement.setString(1, MainActivity.user.telephone);
+                    preparedStatement.setString(2, MainActivity.user.fullname);
+                    preparedStatement.setString(3, MainActivity.user.address);
+                    preparedStatement.setString(4, MainActivity.user.email);
+                    preparedStatement.setString(5, MainActivity.user.password);
                     preparedStatement.executeUpdate();
-
                     System.out.println("Данные добавлены");
-                }
-                catch(Exception ex){
+               }
+            catch(Exception ex){
                     System.out.println("Connection failed...");
-
                     System.out.println(ex);
                 }
 
@@ -105,6 +136,7 @@ public class DatabaseConnect {
         }
         @Override
         protected void onProgressUpdate(Integer... values) {
+
 
         }
         @Override
@@ -115,5 +147,33 @@ public class DatabaseConnect {
 
     public void InsertUser () {
         new InsertUserAsync().execute();
+    }
+
+    public class upgradeTollAsync extends AsyncTask<Void, Integer, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                String insertQuery = "UPDATE employees SET fullname = '"+MainActivity.user.fullname+"',birthdate='"+MainActivity.user.date+"' WHERE email = '"+MainActivity.user.email+"'";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                preparedStatement.executeUpdate();
+
+                System.out.println("Данные обновлены");
+
+            } catch (Exception ex) {
+                System.out.println("Connection failed...");
+                System.out.println(ex);
+            }
+
+            return null;
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+        }
+    }
+    public void upgradeToll () {
+        new upgradeTollAsync().execute();
     }
 }

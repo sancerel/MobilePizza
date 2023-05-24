@@ -139,6 +139,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="HOME"
+            android:onClick="SwitchToHome"
             app:backgroundTint="#43AA72"
             app:cornerRadius="0dp" />
 
@@ -148,6 +149,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="CURRENT"
+            android:onClick="SwitchToCurrent"
             app:backgroundTint="#43AA72"
             app:cornerRadius="0dp" />
 
@@ -166,6 +168,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="STAT"
+            android:onClick="SwitchToStat"
             app:backgroundTint="#43AA72"
             app:cornerRadius="0dp" />
 

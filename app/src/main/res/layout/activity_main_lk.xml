@@ -44,7 +44,7 @@
         app:srcCompat="@drawable/frame_1" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/CardLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -65,13 +65,14 @@
             app:srcCompat="@drawable/pfplk" />
 
         <LinearLayout
+            android:id="@+id/innerCardLayout"
             android:layout_width="wrap_content"
             android:layout_height="157dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/userCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Мванов Иван Иванович" />
@@ -88,7 +89,10 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#43AA72"
                 android:baselineAligned="false"
-                android:text="Редактировать" />
+                android:text="Редактировать"
+                android:onClick="Refactor"
+                />
+
 
         </LinearLayout>
 
@@ -102,7 +106,7 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_layout_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/CardLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -193,6 +197,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="LIST"
+            android:onClick="SwitchToList"
             app:backgroundTint="#43AA72"
             app:cornerRadius="0dp" />
 
@@ -202,6 +207,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="STAT"
+            android:onClick="SwitchToStat"
             app:backgroundTint="#43AA72"
             app:cornerRadius="0dp" />
 

@@ -44,7 +44,7 @@
         app:srcCompat="@drawable/frame_1" />
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/CardLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
@@ -72,7 +72,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/userCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Мванов Иван Иванович" />
@@ -103,6 +103,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="HOME"
+            android:onClick="SwitchToHome"
             app:backgroundTint="#43AA72"
             app:cornerRadius="0dp" />
 
@@ -111,8 +112,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="SwitchToCurrent"
             android:text="CURRENT"
+            android:onClick="SwitchToCurrent"
             app:backgroundTint="#43AA72"
             app:cornerRadius="0dp"
             tools:ignore="UsingOnClickInXml" />
@@ -123,6 +124,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="LIST"
+            android:onClick="SwitchToList"
             app:backgroundTint="#43AA72"
             app:cornerRadius="0dp" />
 
@@ -146,7 +148,7 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_layout_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/CardLayout">
 
         <TextView
             android:id="@+id/orders_accept"
