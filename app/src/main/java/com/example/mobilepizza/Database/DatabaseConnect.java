@@ -1,44 +1,23 @@
 package com.example.mobilepizza.Database;
 
 
-import static android.content.Context.LAYOUT_INFLATER_SERVICE;
-import static androidx.core.content.ContextCompat.getSystemService;
-import static androidx.core.content.ContextCompat.startActivity;
-
-import static com.yandex.runtime.Runtime.getApplicationContext;
-
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Message;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.Switch;
-import android.widget.TextView;
+import android.os.Bundle;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.mobilepizza.MainActivity;
 import com.example.mobilepizza.ProfileSetUpActivity;
 import com.example.mobilepizza.R;
-import com.example.mobilepizza.RegistrationActivity;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
 import java.util.UUID;
 import java.sql.*;
+public class DatabaseConnect extends MainActivity {
 
-public class DatabaseConnect {
-
-    private Connection connection;
+    private static Connection connection;
     private final String host = "77.223.99.19";
 
     private final String database = "postgres";
@@ -46,6 +25,8 @@ public class DatabaseConnect {
     private final String user = "postgres";
     private final String pass = "@W#@aEeGzMxE8MPHPZia";
     private String url = "jdbc:postgresql://77.223.99.19:5432/postgres";
+
+    public static int queryResult = 0;
 
     private boolean status;
 
@@ -59,6 +40,7 @@ public class DatabaseConnect {
 
     private void connect()
     {
+        //Toast toast = Toast.makeText(this, "Hellooo", Toast.LENGTH_LONG);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run()
@@ -111,10 +93,9 @@ public class DatabaseConnect {
     String address="";
     String password="";
     String telephone="";
-
     public class InsertUserAsync extends AsyncTask<Void, Integer, Void> {
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected  Void doInBackground(Void... voids) {
             try
                {
                     String insertQuery = "INSERT INTO Employees (employeeid, telephone, fullName, birthDate, address, email, password, position, employeeStatus, firstWorkDate, lastWorkDate) VALUES ( '"+a.toString()+"' , ? , ?, '2020-01-01', ?, ?, ?, 'courier', 'fired', '2023-05-23', '2023-05-23')";
@@ -125,13 +106,13 @@ public class DatabaseConnect {
                     preparedStatement.setString(4, MainActivity.user.email);
                     preparedStatement.setString(5, MainActivity.user.password);
                     preparedStatement.executeUpdate();
-                    System.out.println("Данные добавлены");
+                    queryResult = 1;
                }
             catch(Exception ex){
-                    System.out.println("Connection failed...");
-                    System.out.println(ex);
+                    System.out.println("Connection failed...12345");
+                System.out.println(ex);
+                queryResult = 2;
                 }
-
             return null;
         }
         @Override
@@ -163,7 +144,6 @@ public class DatabaseConnect {
                 System.out.println("Connection failed...");
                 System.out.println(ex);
             }
-
             return null;
         }
         @Override

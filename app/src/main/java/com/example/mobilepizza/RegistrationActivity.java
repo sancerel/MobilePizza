@@ -10,6 +10,9 @@ import android.widget.TextView;
 import com.example.mobilepizza.Database.DatabaseConnect;
 
 import java.util.HashMap;
+import java.util.*;
+import java.util.concurrent.ScheduledFuture;
+
 
 public class RegistrationActivity extends AppCompatActivity {
     TextView label;
@@ -32,6 +35,10 @@ public class RegistrationActivity extends AppCompatActivity {
         MainActivity.user.email = userEmail.getText().toString();
         MainActivity.user.password = userPassword.getText().toString();
         db.InsertUser();
-        startActivity(new Intent(this, ProfileSetUpActivity.class));
+        while(DatabaseConnect.queryResult == 0){
+          System.out.println("queryResult updating");
+                    if(DatabaseConnect.queryResult == 1) startActivity(new Intent(this, ProfileSetUpActivity.class));
+                    if(DatabaseConnect.queryResult == 2) startActivity(new Intent(this, ErrorActivity.class));
+        }
     }
 }
