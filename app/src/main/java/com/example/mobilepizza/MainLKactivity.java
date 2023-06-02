@@ -27,15 +27,12 @@ public class MainLKactivity extends AppCompatActivity {
     public void SwitchToCurrent(View v){
         startActivity(new Intent(this, CurrentOrderActivity.class));
     }
-
     public void SwitchToList(View view) {
         startActivity(new Intent(this, OrdersListActivity.class));
     }
-
     public void SwitchToStat(View view) {
         startActivity(new Intent(this, StatisticsActivity.class));
     }
-
     public void Refactor(View view) {
         startActivity(new Intent(this, ProfileSetUpActivity.class));
     }

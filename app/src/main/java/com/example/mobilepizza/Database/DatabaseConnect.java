@@ -30,6 +30,9 @@ public class DatabaseConnect extends MainActivity {
 
     private boolean status;
 
+    //Для заказов
+    private UUID ID;
+
     public DatabaseConnect()
     {
         this.url = String.format(this.url, this.host, this.port, this.database);
@@ -125,11 +128,9 @@ public class DatabaseConnect extends MainActivity {
 
         }
     }
-
     public void InsertUser () {
         new InsertUserAsync().execute();
     }
-
     public class upgradeTollAsync extends AsyncTask<Void, Integer, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -155,5 +156,33 @@ public class DatabaseConnect extends MainActivity {
     }
     public void upgradeToll () {
         new upgradeTollAsync().execute();
+    }
+
+    public class getOrderAsync extends AsyncTask<Void, Integer, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try{
+                String insertQuery = "SELECT * FROM orders WHERE orderid='"+ID.toString()+"'";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                preparedStatement.executeUpdate();
+                // достать данные и положить в переменную
+
+                System.out.println("Данные обновлены");
+            } catch (Exception ex) {
+                System.out.println("Connection failed...");
+                System.out.println(ex);
+            }
+            return null;
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+        }
+    }
+    public void getOrder (UUID id) {
+        ID = id;
+        new getOrderAsync().execute();
     }
 }
