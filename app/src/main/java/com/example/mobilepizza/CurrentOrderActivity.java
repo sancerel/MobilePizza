@@ -2,7 +2,10 @@ package com.example.mobilepizza;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.wifi.hotspot2.pps.HomeSp;
 import android.os.Bundle;
+import android.view.View;
 
 import com.yandex.mapkit.Animation;
 import com.yandex.mapkit.MapKitFactory;
@@ -40,5 +43,17 @@ public class CurrentOrderActivity extends AppCompatActivity {
         super.onStart();
         MapKitFactory.getInstance().onStart();
         mapView.onStart();
+    }
+
+    public void SwitchToHome(View view) {
+        startActivity(new Intent(this, MainLKactivity.class));
+    }
+
+    public void SwitchToList(View view) {
+        startActivity(new Intent(this, OrdersListActivity.class));
+    }
+
+    public void SwitchToStat(View view) {
+        startActivity(new Intent(this, StatisticsActivity.class));
     }
 }
