@@ -323,7 +323,7 @@ public class DatabaseConnect extends MainActivity {
         }
     }
 
-    public class deleteOrderAsync extends AsyncTask<Object, Integer, Object> {
+    /*public class deleteOrderAsync extends AsyncTask<Object, Integer, Object> {
         @Override
         protected ArrayList<Order> doInBackground(Object... params) {
             try{
@@ -344,5 +344,5 @@ public class DatabaseConnect extends MainActivity {
     }
     public void deleteOrder() {
         new deleteOrderAsync().execute();
-    }
+    }*/
 }
