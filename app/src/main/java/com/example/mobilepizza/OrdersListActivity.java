@@ -64,22 +64,6 @@ public class OrdersListActivity extends AppCompatActivity {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void SwitchToCurrent(View view) {
         startActivity(new Intent(this,CurrentOrderActivity.class));
     }

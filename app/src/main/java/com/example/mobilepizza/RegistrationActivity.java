@@ -41,4 +41,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     if(DatabaseConnect.queryResult == 2) startActivity(new Intent(this, ErrorActivity.class));
         }
     }
+
+    public void SwitchToSignUp(View view) {
+        startActivity(new Intent(this, SignUpActivity.class));
+    }
 }

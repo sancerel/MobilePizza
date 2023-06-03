@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.mobilepizza.Database.DatabaseConnect;
+
 public class SignUpActivity extends AppCompatActivity {
 
     @Override
@@ -17,11 +19,15 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     public void handleAuthSubmitClick(View v){
-        //проверить логин, пароль
-        TextView userLogin = findViewById(R.id.signup_login);
+        DatabaseConnect db = new DatabaseConnect();
+        TextView userTelephone = findViewById(R.id.signup_phone);
         TextView userPassword = findViewById(R.id.signup_password);
+        userPassword.getText().toString();
+        userTelephone.getText().toString();
 
-
-        startActivity(new Intent(this, MainLKactivity.class));
+        if(db.userVerification(userPassword.getText().toString(),userTelephone.getText().toString())) {
+            startActivity(new Intent(this, MainLKactivity.class));
+        }
+        //else
     }
 }

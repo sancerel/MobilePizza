@@ -30,6 +30,10 @@ public class DatabaseConnect extends MainActivity {
 
     //Для заказов
     ArrayList<Order> ORDERS;
+    private String TEL;
+    private String PAS;
+    private String FULLNAME = "";
+    private boolean isUserExists = false;
 
     public DatabaseConnect()
     {
@@ -199,5 +203,47 @@ public class DatabaseConnect extends MainActivity {
             throw new RuntimeException(e);
         }
         return ORDERS;
+    }
+
+    public class userVerificationAsync extends AsyncTask<Object, Integer, Boolean> {
+        @Override
+        protected Boolean doInBackground(Object... params) {
+            try{
+                String insertQuery = "SELECT * FROM employees WHERE telephone='"+TEL+"' AND password = '"+PAS+"'";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                ResultSet rs= preparedStatement.executeQuery();
+                while (rs.next()){
+                    FULLNAME = rs.getString("fullname");
+                    isUserExists= true;
+                }
+                System.out.println("Заказы получены");
+            } catch (Exception ex) {
+                System.out.println("Connection failed...");
+                System.out.println(ex);
+            }
+            return isUserExists;
+        }
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+        }
+    }
+
+    public boolean userVerification (String PAS, String TEL) {
+        this.PAS=PAS;
+        this.TEL=TEL;
+        AsyncTask<Object, Integer, Boolean> task = new userVerificationAsync();
+        task.execute();
+        try {
+            task.get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        this.PAS=null;
+        this.TEL=null;
+        MainActivity.user.fullname =FULLNAME;
+        return isUserExists;
     }
 }
