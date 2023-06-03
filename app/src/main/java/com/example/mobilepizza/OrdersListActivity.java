@@ -81,6 +81,7 @@ public class OrdersListActivity extends AppCompatActivity {
         UUID orderid = ORDERMAP.get(parent);
         db.getOrdersId(orderid);
         db.orderBinding();
+        db.deleteOrder();
     }
 
     public void SwitchToCurrent(View view) {

@@ -176,6 +176,7 @@ public class DatabaseConnect extends MainActivity {
                     String cost = rs.getString("cost");
                     String address = rs.getString("address");
                     Date date = rs.getDate("createdate");
+                    ORDERID = rs.getString("orderid");
                     Order or = new Order(UUID.fromString(uuid),cost,address,date);
                     if(ORDERS == null)
                         ORDERS = new ArrayList<Order>();
@@ -204,6 +205,7 @@ public class DatabaseConnect extends MainActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        MainActivity.user.orderid =ORDERID;
         return ORDERS;
     }
 
@@ -319,5 +321,28 @@ public class DatabaseConnect extends MainActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public class deleteOrderAsync extends AsyncTask<Object, Integer, Object> {
+        @Override
+        protected ArrayList<Order> doInBackground(Object... params) {
+            try{
+                String insertQuery = "DELETE FROM orders WHERE orderid = '"+MainActivity.user.orderid+"'";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                preparedStatement.executeUpdate();
+                System.out.println("Заказ удалён из базы данных");
+            } catch (Exception ex) {
+                System.out.println("Connection failed...");
+                System.out.println(ex);
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Object result) {
+            super.onPostExecute(result);
+        }
+    }
+    public void deleteOrder() {
+        new deleteOrderAsync().execute();
     }
 }
