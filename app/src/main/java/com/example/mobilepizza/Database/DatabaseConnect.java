@@ -1,20 +1,18 @@
 package com.example.mobilepizza.Database;
 
 
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.mobilepizza.MainActivity;
-import com.example.mobilepizza.ProfileSetUpActivity;
-import com.example.mobilepizza.R;
+import com.example.mobilepizza.Order.Order;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.sql.*;
+import java.util.concurrent.ExecutionException;
+
 public class DatabaseConnect extends MainActivity {
 
     private static Connection connection;
@@ -31,7 +29,7 @@ public class DatabaseConnect extends MainActivity {
     private boolean status;
 
     //Для заказов
-    private UUID ID;
+    ArrayList<Order> ORDERS;
 
     public DatabaseConnect()
     {
@@ -158,31 +156,48 @@ public class DatabaseConnect extends MainActivity {
         new upgradeTollAsync().execute();
     }
 
-    public class getOrderAsync extends AsyncTask<Void, Integer, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try{
-                String insertQuery = "SELECT * FROM orders WHERE orderid='"+ID.toString()+"'";
-                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
-                preparedStatement.executeUpdate();
-                // достать данные и положить в переменную
 
-                System.out.println("Данные обновлены");
+    /* Обработка заказов */
+    public class getOrdersAsync extends AsyncTask<Object, Integer, Object> {
+        @Override
+        protected ArrayList<Order> doInBackground(Object... params) {
+            try{
+                String insertQuery = "SELECT * FROM orders";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                ResultSet rs= preparedStatement.executeQuery();
+                while(rs.next()){
+                    String uuid = rs.getString("orderid");
+                    String cost = rs.getString("cost");
+                    String address = rs.getString("address");
+                    Date date = rs.getDate("createdate");
+                    Order or = new Order(UUID.fromString(uuid),cost,address,date);
+                    if(ORDERS == null)
+                        ORDERS = new ArrayList<Order>();
+                    if(!ORDERS.contains(or) )
+                         ORDERS.add(or);
+                }
+                System.out.println("Заказы получены");
             } catch (Exception ex) {
                 System.out.println("Connection failed...");
                 System.out.println(ex);
             }
-            return null;
+            return ORDERS;
         }
         @Override
-        protected void onProgressUpdate(Integer... values) {
-        }
-        @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(Object result) {
+            super.onPostExecute(result);
         }
     }
-    public void getOrder (UUID id) {
-        ID = id;
-        new getOrderAsync().execute();
+    public ArrayList<Order> getOrders () {
+        AsyncTask<Object, Integer, Object> task = new getOrdersAsync();
+        task.execute();
+        try {
+            task.get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return ORDERS;
     }
 }

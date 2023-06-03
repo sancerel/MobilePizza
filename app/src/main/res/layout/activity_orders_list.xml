@@ -42,7 +42,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintBottom_toTopOf="@+id/or_scroll_area"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/lk_logo3"
@@ -64,7 +64,7 @@
         app:srcCompat="@drawable/frame_1" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/or_scroll_area"
         android:layout_width="414dp"
         android:layout_height="416dp"
         android:layout_marginTop="23dp"
@@ -75,6 +75,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <LinearLayout
+            android:id="@+id/or_linear_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
