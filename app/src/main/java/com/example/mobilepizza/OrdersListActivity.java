@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -44,9 +45,22 @@ public class OrdersListActivity extends AppCompatActivity {
         for (Order or : ORDERS) {
             String address = or.getAddres();
             String cost = or.getCost();
+
             TextView tv = new TextView(this);
-            tv.setText(String.format("Заказ на сумму: %s. Адрес доставки %s.", cost, address));
-            sv_ll.addView(tv);
+            Button btn = new Button(this);
+            LinearLayout ll = new LinearLayout(this);
+
+            tv.setText(String.format("Заказ на сумму: %s. \n Адрес доставки %s.", cost, address));
+            //tv.setMaxWidth(250);
+            tv.setPadding(50,30,50,30);
+
+            btn.setText("Принять заказ");
+
+            ll.setOrientation(LinearLayout.HORIZONTAL);
+            ll.addView(tv);
+            ll.addView(btn);
+
+            sv_ll.addView(ll);
         }
     }
 
