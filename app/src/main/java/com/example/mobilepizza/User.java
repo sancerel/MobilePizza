@@ -14,7 +14,7 @@ public class User {
     public String password="";
     public String telephone="";
     public Date date;
-    public Order order = new Order(java.util.UUID.randomUUID(),"10020","Ekb", new Date(1,1,1)); // Заглушка; После реализации присвоения заказа - убрать
+    public Order order;
     public User(){
 
     }

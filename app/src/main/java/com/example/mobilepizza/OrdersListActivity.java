@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -14,9 +15,12 @@ import com.example.mobilepizza.Database.DatabaseConnect;
 import com.example.mobilepizza.Order.Order;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class OrdersListActivity extends AppCompatActivity {
+    HashMap<LinearLayout,UUID> ORDERMAP = new HashMap<LinearLayout,UUID>();
     ArrayList<Order> ORDERS;
 
     //По нажатию на заказ в листе заказов и его подтверждения вызываем этот метод
@@ -45,6 +49,7 @@ public class OrdersListActivity extends AppCompatActivity {
         for (Order or : ORDERS) {
             String address = or.getAddres();
             String cost = or.getCost();
+            UUID orderId = or.getOrderId();
 
             TextView tv = new TextView(this);
             Button btn = new Button(this);
@@ -53,15 +58,28 @@ public class OrdersListActivity extends AppCompatActivity {
             tv.setText(String.format("Заказ на сумму: %s. \n Адрес доставки %s.", cost, address));
             //tv.setMaxWidth(250);
             tv.setPadding(50,30,50,30);
-
             btn.setText("Принять заказ");
+            btn.setOnClickListener(new View.OnClickListener() {
 
+                @Override
+                public void onClick(View view) {
+                    acceptOrder(btn.getParent());
+                    btn.setEnabled(false);
+                    btn.setText("Принят");
+                }
+            });
             ll.setOrientation(LinearLayout.HORIZONTAL);
             ll.addView(tv);
             ll.addView(btn);
-
+            ORDERMAP.put(ll,orderId);
             sv_ll.addView(ll);
         }
+    }
+
+    public void acceptOrder(ViewParent parent){
+        DatabaseConnect db = new DatabaseConnect();
+        UUID orderid = ORDERMAP.get(parent);
+        db.getOrdersId(orderid);
     }
 
     public void SwitchToCurrent(View view) {

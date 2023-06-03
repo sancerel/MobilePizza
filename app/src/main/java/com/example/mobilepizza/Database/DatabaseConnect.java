@@ -33,6 +33,8 @@ public class DatabaseConnect extends MainActivity {
     private String TEL;
     private String PAS;
     private String FULLNAME = "";
+    private String EMPLOYEESID;
+    private String ORDERID;
     private boolean isUserExists = false;
 
     public DatabaseConnect()
@@ -216,7 +218,7 @@ public class DatabaseConnect extends MainActivity {
                     FULLNAME = rs.getString("fullname");
                     isUserExists= true;
                 }
-                System.out.println("Заказы получены");
+                System.out.println("Вход выполнен");
             } catch (Exception ex) {
                 System.out.println("Connection failed...");
                 System.out.println(ex);
@@ -246,4 +248,75 @@ public class DatabaseConnect extends MainActivity {
         MainActivity.user.fullname =FULLNAME;
         return isUserExists;
     }
+
+    /*public class orderBindingAsync extends AsyncTask<Void, Integer, Void> {
+        @Override
+        protected  Void doInBackground(Void... voids) {
+
+            try
+            {
+                String insertQuery = "INSERT INTO employees_orders (id,employeesid, orderid) VALUES ('"+java.util.UUID.randomUUID().toString()+"','"+EMPLOYEESID+"','"+2+"')";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                preparedStatement.executeUpdate();
+                System.out.println("Заказ привязан");
+            }
+            catch(Exception ex){
+                System.out.println("Connection failed...");
+                System.out.println(ex);
+            }
+            return null;
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+
+
+        }
+        @Override
+        protected void onPostExecute(Void result) {
+
+        }
+    }
+    public void orderBinding () {
+        new orderBindingAsync().execute();
+    }*/
+    public class getOrderIdAsync extends AsyncTask<Object, Integer, Object> {
+        @Override
+        protected ArrayList<Order> doInBackground(Object... params) {
+            try{
+                String insertQuery = "SELECT * FROM orders WHERE orderid = '"+ORDERID+"'";
+                PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
+                ResultSet rs= preparedStatement.executeQuery();
+                while(rs.next()){
+                    String uuid = rs.getString("orderid");
+                    String cost = rs.getString("cost");
+                    String address = rs.getString("address");
+                    Date date = rs.getDate("createdate");
+                    Order or = new Order(UUID.fromString(uuid),cost,address,date);
+                    MainActivity.user.setOrder(or);
+                }
+                System.out.println("Id получен");
+            } catch (Exception ex) {
+                System.out.println("Connection failed...");
+                System.out.println(ex);
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Object result) {
+            super.onPostExecute(result);
+        }
+    }
+    public void  getOrdersId (UUID orderid) {
+        ORDERID = orderid.toString();
+        AsyncTask<Object, Integer, Object> task = new getOrderIdAsync();
+        task.execute();
+        try {
+            task.get();
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
