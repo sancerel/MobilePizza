@@ -216,6 +216,7 @@ public class DatabaseConnect extends MainActivity {
                 ResultSet rs= preparedStatement.executeQuery();
                 while (rs.next()){
                     FULLNAME = rs.getString("fullname");
+                    EMPLOYEESID = rs.getString("employeeid");
                     isUserExists= true;
                 }
                 System.out.println("Вход выполнен");
@@ -245,17 +246,18 @@ public class DatabaseConnect extends MainActivity {
         }
         this.PAS=null;
         this.TEL=null;
+        MainActivity.user.employeeid = EMPLOYEESID;
         MainActivity.user.fullname =FULLNAME;
         return isUserExists;
     }
+    UUID b = java.util.UUID.randomUUID();
 
-    /*public class orderBindingAsync extends AsyncTask<Void, Integer, Void> {
+    public class orderBindingAsync extends AsyncTask<Void, Integer, Void> {
         @Override
         protected  Void doInBackground(Void... voids) {
-
             try
             {
-                String insertQuery = "INSERT INTO employees_orders (id,employeesid, orderid) VALUES ('"+java.util.UUID.randomUUID().toString()+"','"+EMPLOYEESID+"','"+2+"')";
+                String insertQuery = "INSERT INTO employees_orders (id,employeeid, orderid) VALUES ('"+b.toString()+"','"+MainActivity.user.employeeid+"','"+ORDERID+"')";
                 PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
                 preparedStatement.executeUpdate();
                 System.out.println("Заказ привязан");
@@ -278,7 +280,7 @@ public class DatabaseConnect extends MainActivity {
     }
     public void orderBinding () {
         new orderBindingAsync().execute();
-    }*/
+    }
     public class getOrderIdAsync extends AsyncTask<Object, Integer, Object> {
         @Override
         protected ArrayList<Order> doInBackground(Object... params) {
@@ -318,5 +320,4 @@ public class DatabaseConnect extends MainActivity {
             throw new RuntimeException(e);
         }
     }
-
 }

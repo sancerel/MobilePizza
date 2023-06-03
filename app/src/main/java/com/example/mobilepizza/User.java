@@ -13,6 +13,7 @@ public class User {
     public String address="";
     public String password="";
     public String telephone="";
+    public String employeeid;
     public Date date;
     public Order order;
     public User(){

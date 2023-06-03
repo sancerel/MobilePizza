@@ -80,6 +80,7 @@ public class OrdersListActivity extends AppCompatActivity {
         DatabaseConnect db = new DatabaseConnect();
         UUID orderid = ORDERMAP.get(parent);
         db.getOrdersId(orderid);
+        db.orderBinding();
     }
 
     public void SwitchToCurrent(View view) {
