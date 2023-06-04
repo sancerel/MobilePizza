@@ -26,6 +26,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/corner_green" />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/error"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="TextView" />
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/input_layout"
         android:layout_width="match_parent"
@@ -106,7 +119,7 @@
             app:layout_constraintTop_toBottomOf="@+id/setup_submit_btn2" />
 
         <TextView
-            android:id="@+id/sign_in"
+            android:id="@+id/sign_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="185dp"

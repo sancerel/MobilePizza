@@ -16,7 +16,6 @@ public class User {
     public String employeeid;
     public Date date;
     public Order order;
-    public String orderid;
     public User(){
 
     }

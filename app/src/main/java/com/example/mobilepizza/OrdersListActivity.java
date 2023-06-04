@@ -82,6 +82,7 @@ public class OrdersListActivity extends AppCompatActivity {
         db.getOrdersId(orderid);
         db.orderBinding();
         db.deleteOrder();
+        ORDERS.removeIf(or -> or.getOrderId() == orderid);
     }
 
     public void SwitchToCurrent(View view) {

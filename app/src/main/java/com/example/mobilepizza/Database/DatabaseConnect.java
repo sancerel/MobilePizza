@@ -94,7 +94,6 @@ public class DatabaseConnect extends MainActivity {
 
         return c;
     }
-    UUID a = java.util.UUID.randomUUID();
     String email = "";
     String fullname="";
     String address="";
@@ -103,6 +102,7 @@ public class DatabaseConnect extends MainActivity {
     public class InsertUserAsync extends AsyncTask<Void, Integer, Void> {
         @Override
         protected  Void doInBackground(Void... voids) {
+            UUID a = java.util.UUID.randomUUID();
             try
                {
                     String insertQuery = "INSERT INTO Employees (employeeid, telephone, fullName, birthDate, address, email, password, position, employeeStatus, firstWorkDate, lastWorkDate) VALUES ( '"+a.toString()+"' , ? , ?, '2020-01-01', ?, ?, ?, 'courier', 'fired', '2023-05-23', '2023-05-23')";
@@ -113,6 +113,7 @@ public class DatabaseConnect extends MainActivity {
                     preparedStatement.setString(4, MainActivity.user.email);
                     preparedStatement.setString(5, MainActivity.user.password);
                     preparedStatement.executeUpdate();
+                    MainActivity.user.employeeid = a.toString();
                     queryResult = 1;
                }
             catch(Exception ex){
@@ -146,7 +147,7 @@ public class DatabaseConnect extends MainActivity {
                 System.out.println("Данные обновлены");
 
             } catch (Exception ex) {
-                System.out.println("Connection failed...");
+                System.out.println("Connection failed...1");
                 System.out.println(ex);
             }
             return null;
@@ -168,7 +169,7 @@ public class DatabaseConnect extends MainActivity {
         @Override
         protected ArrayList<Order> doInBackground(Object... params) {
             try{
-                String insertQuery = "SELECT * FROM orders";
+                String insertQuery = "SELECT * FROM orders WHERE orderstatus = 'new'" ;
                 PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
                 ResultSet rs= preparedStatement.executeQuery();
                 while(rs.next()){
@@ -185,7 +186,7 @@ public class DatabaseConnect extends MainActivity {
                 }
                 System.out.println("Заказы получены");
             } catch (Exception ex) {
-                System.out.println("Connection failed...");
+                System.out.println("Connection failed...2");
                 System.out.println(ex);
             }
             return ORDERS;
@@ -205,7 +206,6 @@ public class DatabaseConnect extends MainActivity {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        MainActivity.user.orderid =ORDERID;
         return ORDERS;
     }
 
@@ -223,7 +223,7 @@ public class DatabaseConnect extends MainActivity {
                 }
                 System.out.println("Вход выполнен");
             } catch (Exception ex) {
-                System.out.println("Connection failed...");
+                System.out.println("Connection failed...3");
                 System.out.println(ex);
             }
             return isUserExists;
@@ -259,13 +259,13 @@ public class DatabaseConnect extends MainActivity {
         protected  Void doInBackground(Void... voids) {
             try
             {
-                String insertQuery = "INSERT INTO employees_orders (id,employeeid, orderid) VALUES ('"+b.toString()+"','"+MainActivity.user.employeeid+"','"+ORDERID+"')";
+                String insertQuery = "INSERT INTO employees_orders (id,employeeid, orderid) VALUES ('"+b+"','"+MainActivity.user.employeeid+"','"+ORDERID+"')";
                 PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
                 preparedStatement.executeUpdate();
                 System.out.println("Заказ привязан");
             }
             catch(Exception ex){
-                System.out.println("Connection failed...");
+                System.out.println("Connection failed...4");
                 System.out.println(ex);
             }
             return null;
@@ -300,7 +300,7 @@ public class DatabaseConnect extends MainActivity {
                 }
                 System.out.println("Id получен");
             } catch (Exception ex) {
-                System.out.println("Connection failed...");
+                System.out.println("Connection failed...5");
                 System.out.println(ex);
             }
             return null;
@@ -323,16 +323,16 @@ public class DatabaseConnect extends MainActivity {
         }
     }
 
-    /*public class deleteOrderAsync extends AsyncTask<Object, Integer, Object> {
+    public class deleteOrderAsync extends AsyncTask<Object, Integer, Object> {
         @Override
         protected ArrayList<Order> doInBackground(Object... params) {
             try{
-                String insertQuery = "DELETE FROM orders WHERE orderid = '"+MainActivity.user.orderid+"'";
+                String insertQuery = "UPDATE orders SET orderstatus = 'done' WHERE orderid = '"+ORDERID+"'";
                 PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
                 preparedStatement.executeUpdate();
-                System.out.println("Заказ удалён из базы данных");
+                System.out.println("Статус обновлён");
             } catch (Exception ex) {
-                System.out.println("Connection failed...");
+                System.out.println("Connection failed...6");
                 System.out.println(ex);
             }
             return null;
@@ -344,5 +344,5 @@ public class DatabaseConnect extends MainActivity {
     }
     public void deleteOrder() {
         new deleteOrderAsync().execute();
-    }*/
+    }
 }

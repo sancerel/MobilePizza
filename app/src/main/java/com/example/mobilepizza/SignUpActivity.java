@@ -30,4 +30,8 @@ public class SignUpActivity extends AppCompatActivity {
         }
         //else
     }
+
+    public void SwitchToRegistration(View view) {
+        startActivity(new Intent(this, RegistrationActivity.class));
+    }
 }
